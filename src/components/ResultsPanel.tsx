@@ -97,7 +97,9 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
                   <Box className="flex items-center justify-between">
                     <Box className="flex items-center gap-3">
                       <Box className={`p-2 rounded-lg ${colorClass}`}>
-                        <Icon className="text-white" fontSize="small" />
+                        <span className="text-white">
+                          <Icon fontSize="small" />
+                        </span>
                       </Box>
                       <Box>
                         <Typography className="text-white font-medium">
@@ -122,10 +124,10 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
                       {item.action === 'create_reminder' && (
                         <Box>
                           <Typography className="text-gray-400 text-sm">Nội dung:</Typography>
-                          <Typography className="text-white">{item.result.content}</Typography>
+                          <Typography className="text-white">{item.result.content as string}</Typography>
                           <Typography className="text-gray-400 text-sm mt-2">Thời gian:</Typography>
                           <Typography className="text-primary-400">
-                            {format(new Date(item.result.remind_at), 'PPpp', { locale: vi })}
+                            {format(new Date(item.result.remind_at as string), 'PPpp', { locale: vi })}
                           </Typography>
                         </Box>
                       )}
@@ -134,7 +136,7 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
                         <Box>
                           <Typography className="text-gray-400 text-sm">Nội dung đã tạo:</Typography>
                           <Typography className="text-white whitespace-pre-wrap mt-2">
-                            {item.result.content}
+                            {item.result.content as string}
                           </Typography>
                         </Box>
                       )}
@@ -142,12 +144,12 @@ export default function ResultsPanel({ results }: ResultsPanelProps) {
                       {item.action === 'schedule_post' && (
                         <Box>
                           <Typography className="text-gray-400 text-sm">Nền tảng:</Typography>
-                          <Typography className="text-white capitalize">{item.result.platform}</Typography>
-                          {item.result.scheduled_at && (
+                          <Typography className="text-white capitalize">{item.result.platform as string}</Typography>
+                          {!!item.result.scheduled_at && (
                             <>
                               <Typography className="text-gray-400 text-sm mt-2">Lên lịch:</Typography>
                               <Typography className="text-primary-400">
-                                {format(new Date(item.result.scheduled_at), 'PPpp', { locale: vi })}
+                                {format(new Date(item.result.scheduled_at as string), 'PPpp', { locale: vi })}
                               </Typography>
                             </>
                           )}

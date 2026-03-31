@@ -187,7 +187,9 @@ export default function AuthLoadingScreen({ children }: AuthLoadingScreenProps) 
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0 }}
                   >
-                    <SmartToy className="text-5xl text-primary-400" />
+                    <span className="text-5xl text-primary-400">
+                      <SmartToy fontSize="inherit" />
+                    </span>
                   </motion.div>
                 )}
 
@@ -198,7 +200,9 @@ export default function AuthLoadingScreen({ children }: AuthLoadingScreenProps) 
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0 }}
                   >
-                    <ErrorIcon className="text-5xl text-red-400" />
+                    <span className="text-5xl text-red-400">
+                      <ErrorIcon fontSize="inherit" />
+                    </span>
                   </motion.div>
                 )}
               </AnimatePresence>

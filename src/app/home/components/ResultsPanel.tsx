@@ -200,7 +200,9 @@ export default function ResultsPanel({ results, onClose }: ResultsPanelProps) {
                           whileHover={{ scale: 1.1, rotate: 5 }}
                           whileTap={{ scale: 0.95 }}
                         >
-                          <Icon className="text-white" fontSize="small" />
+                          <span className="text-white">
+                            <Icon fontSize="small" />
+                          </span>
                         </motion.div>
 
                         {/* Action info */}
