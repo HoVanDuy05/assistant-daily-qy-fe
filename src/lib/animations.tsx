@@ -84,7 +84,7 @@ export const pageTransition: Variants = {
 };
 
 // Card hover animation
-export const cardHover = {
+export const cardHover: Variants = {
   rest: { scale: 1 },
   hover: {
     scale: 1.02,
@@ -93,12 +93,12 @@ export const cardHover = {
 };
 
 // Button tap animation
-export const buttonTap = {
+export const buttonTap: Variants = {
   tap: { scale: 0.98 },
 };
 
 // Pulse animation for loading states
-export const pulse = {
+export const pulse: Variants = {
   animate: {
     scale: [1, 1.05, 1],
     opacity: [0.7, 1, 0.7],
@@ -111,7 +111,7 @@ export const pulse = {
 };
 
 // Floating animation for decorative elements
-export const float = {
+export const float: Variants = {
   animate: {
     y: [0, -10, 0],
     transition: {
@@ -123,7 +123,7 @@ export const float = {
 };
 
 // Rotate animation
-export const rotate = {
+export const rotate: Variants = {
   animate: {
     rotate: 360,
     transition: {
@@ -135,7 +135,7 @@ export const rotate = {
 };
 
 // Shake animation for errors
-export const shake = {
+export const shake: Variants = {
   animate: {
     x: [0, -5, 5, -5, 5, 0],
     transition: {
@@ -146,7 +146,7 @@ export const shake = {
 };
 
 // Bounce animation
-export const bounce = {
+export const bounce: Variants = {
   animate: {
     y: [0, -20, 0],
     transition: {
@@ -158,7 +158,7 @@ export const bounce = {
 };
 
 // Glow effect animation
-export const glow = {
+export const glow: Variants = {
   animate: {
     boxShadow: [
       '0 0 20px rgba(99, 102, 241, 0.3)',
@@ -219,8 +219,7 @@ export function AnimatedContainer({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }
-      }
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ ...smoothTransition, delay }}
       className={className}
