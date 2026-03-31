@@ -10,6 +10,7 @@ import {
   Error,
   ExpandMore,
   Notifications,
+  Close,
 } from '@mui/icons-material';
 import {
   Paper,
@@ -95,7 +96,7 @@ export default function ResultsPanel({ results, onClose }: ResultsPanelProps) {
     >
       <Paper
         elevation={0}
-        className="p-6 bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden relative"
+        className="p-4 md:p-6 bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl md:rounded-3xl overflow-hidden relative"
       >
         {/* Success confetti effect */}
         <AnimatePresence>
@@ -131,13 +132,13 @@ export default function ResultsPanel({ results, onClose }: ResultsPanelProps) {
 
         {/* Header */}
         <motion.div
-          className="flex items-center justify-between mb-6"
+          className="flex items-center justify-between mb-4 md:mb-6"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
             <motion.div
-              className="p-2 bg-green-500/20 rounded-xl"
+              className="p-1.5 md:p-2 bg-green-500/20 rounded-xl"
               animate={{
                 scale: [1, 1.1, 1],
               }}
@@ -147,23 +148,28 @@ export default function ResultsPanel({ results, onClose }: ResultsPanelProps) {
                 ease: 'easeInOut',
               }}
             >
-              <CheckCircle className="text-green-400" />
+              <CheckCircle className="text-green-400" sx={{ fontSize: { xs: 20, md: 24 } }} />
             </motion.div>
             <div>
-              <Typography variant="h6" className="text-white font-bold">
+              <Typography className="text-white font-bold text-base md:text-lg">
                 Kết quả xử lý
               </Typography>
-              <Typography className="text-gray-400 text-sm">
-                {results.results.length} hành động đã được thực hiện
+              <Typography className="text-gray-400 text-xs md:text-sm">
+                {results.results.length} hành động thành công
               </Typography>
             </div>
           </div>
+          {onClose && (
+            <IconButton onClick={onClose} className="text-gray-500 md:hidden">
+              <Close />
+            </IconButton>
+          )}
           {onClose && (
             <Button
               variant="outlined"
               size="small"
               onClick={onClose}
-              className="border-slate-600 text-gray-400 hover:text-white"
+              className="hidden md:flex border-slate-600 text-gray-400 hover:text-white"
             >
               Đóng
             </Button>

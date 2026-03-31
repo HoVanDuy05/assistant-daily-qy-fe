@@ -74,7 +74,7 @@ export default function SmartInput({ onResult, onHistoryClick }: SmartInputProps
     >
       <Paper
         elevation={0}
-        className="p-6 bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl overflow-hidden relative"
+        className="p-4 md:p-6 bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl md:rounded-3xl overflow-hidden relative"
       >
         {/* Animated background glow */}
         <AnimatePresence>
@@ -104,8 +104,8 @@ export default function SmartInput({ onResult, onHistoryClick }: SmartInputProps
               <AutoAwesome className="text-primary-400" />
             </motion.div>
             <div>
-              <h3 className="text-white font-semibold">Smart Input</h3>
-              <p className="text-gray-400 text-sm">AI sẽ tự động hiểu và thực hiện</p>
+              <h3 className="text-white font-semibold text-sm md:text-base">Smart Input</h3>
+              <p className="text-gray-400 text-xs md:text-sm">AI tự động thực hiện</p>
             </div>
             {onHistoryClick && (
               <Tooltip title="Lịch sử lệnh">
@@ -219,10 +219,12 @@ export default function SmartInput({ onResult, onHistoryClick }: SmartInputProps
             <motion.div
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              className="w-full sm:w-auto"
             >
               <Button
                 type="submit"
                 variant="contained"
+                fullWidth
                 disabled={loading || !input.trim()}
                 endIcon={
                   loading ? (
@@ -237,7 +239,7 @@ export default function SmartInput({ onResult, onHistoryClick }: SmartInputProps
                   )
                 }
                 className={`
-                  px-8 py-3 rounded-xl font-semibold text-white
+                  px-6 md:px-8 py-2.5 md:py-3 rounded-xl font-semibold text-white
                   ${loading || !input.trim()
                     ? 'bg-slate-600 cursor-not-allowed'
                     : 'bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-500 hover:to-purple-500 shadow-lg shadow-primary-500/25'
@@ -245,7 +247,7 @@ export default function SmartInput({ onResult, onHistoryClick }: SmartInputProps
                   transition-all duration-300
                 `}
               >
-                {loading ? 'AI đang xử lý...' : 'Thực hiện'}
+                {loading ? 'Đang xử lý...' : 'Thực hiện'}
               </Button>
             </motion.div>
           </motion.div>
