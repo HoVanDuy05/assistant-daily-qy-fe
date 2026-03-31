@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import AuthLoadingScreen from '@/components/layout/AuthLoadingScreen';
-import { useAuth } from './useAuth';
+import { useAuthStore } from '@/stores/authStore';
 
 const PUBLIC_PATHS = ['/login', '/register', '/forgot-password'];
 
@@ -14,32 +14,56 @@ interface ProtectedRouteProps {
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const { isLoading, isAuthenticated } = useAuth();
+  const { isAuthenticated, token, setUser, setToken } = useAuthStore();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated && !PUBLIC_PATHS.includes(pathname)) {
-      router.push('/login');
-    }
+    const checkAuth = async () => {
+      const storedToken = localStorage.getItem('token');
+      
+      if (!storedToken) {
+        setIsLoading(false);
+        if (!PUBLIC_PATHS.includes(pathname)) {
+           router.push('/login');
+        }
+        return;
+      }
+
+      // If we have a token but haven't fetched user yet
+      if (!isAuthenticated) {
+        try {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
+            headers: { 'Authorization': `Bearer ${storedToken}` }
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            setUser(data.data);
+            setToken(storedToken);
+          } else {
+            localStorage.removeItem('token');
+            router.push('/login');
+          }
+        } catch (error) {
+           console.error("Auth check failed", error);
+        }
+      }
+      
+      setIsLoading(false);
+    };
+
+    checkAuth();
+  }, [pathname, isAuthenticated, setUser, setToken, router]);
+
+  useEffect(() => {
+     // Prevent authenticated users from visiting login/register
+     if (!isLoading && isAuthenticated && PUBLIC_PATHS.includes(pathname)) {
+        router.push('/');
+     }
   }, [isLoading, isAuthenticated, pathname, router]);
 
-  // Show loading screen while checking auth
   if (isLoading && !PUBLIC_PATHS.includes(pathname)) {
-    return (
-      <AuthLoadingScreen>
-        <div />
-      </AuthLoadingScreen>
-    );
-  }
-
-  // Redirect if not authenticated
-  if (!isAuthenticated && !PUBLIC_PATHS.includes(pathname)) {
-    return null;
-  }
-
-  // Prevent authenticated users from accessing public pages
-  if (isAuthenticated && PUBLIC_PATHS.includes(pathname)) {
-    router.push('/');
-    return null;
+    return <AuthLoadingScreen><div /></AuthLoadingScreen>;
   }
 
   return <>{children}</>;
