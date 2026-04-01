@@ -180,31 +180,21 @@ export default function AuthLoadingScreen({ children }: AuthLoadingScreenProps) 
               backdrop-blur-md border border-white/10
             `}>
               <AnimatePresence mode="wait">
-                {state === 'checking' && (
-                  <motion.div
-                    key="checking"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0 }}
-                  >
-                    <span className="text-5xl text-primary-400">
-                      <SmartToy fontSize="inherit" />
-                    </span>
-                  </motion.div>
-                )}
-
-                {(state === 'invalid' || state === 'error') && (
-                  <motion.div
-                    key="error"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0 }}
-                  >
-                    <span className="text-5xl text-red-400">
-                      <ErrorIcon fontSize="inherit" />
-                    </span>
-                  </motion.div>
-                )}
+                <motion.div
+                  key="icon"
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0 }}
+                >
+                  <span className={`
+                    text-5xl
+                    ${state === 'checking' ? 'text-primary-400' : ''}
+                    ${state === 'invalid' ? 'text-red-400' : ''}
+                    ${state === 'error' ? 'text-yellow-400' : ''}
+                  `}>
+                    <SmartToy fontSize="inherit" />
+                  </span>
+                </motion.div>
               </AnimatePresence>
             </div>
           </motion.div>
